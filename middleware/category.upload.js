@@ -2,8 +2,8 @@ const multer = require("multer");
 const Path = require("path");
 
 const storage = multer.diskStorage({
-  destination: function (res, file, callback) {
-    cb(null, "./uploads/categories");
+  destination: function (res, file, cb) {
+    cb(null, "../uploads/categories");
   },
   filename: function (res, file, cb) {
     cb(null, Date.now + "-" + file.originalname);

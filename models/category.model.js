@@ -9,7 +9,7 @@ const CategorySchema = mongoose.model(
     },
     categoryDescription: {
       type: String,
-      required: false,
+      required: true,
     },
     categoryImage: {
       type: String,

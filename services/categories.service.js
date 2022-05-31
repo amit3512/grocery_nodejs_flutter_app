@@ -1,5 +1,5 @@
 const { MONGO_DB_CONFIG } = require("../config/app.config");
-const { category } = require("../models/category.model");
+const { CategorySchema } = require("../models/category.model");
 
 async function createCategory(params, callback) {
   if (!params.categoryName) {
@@ -10,8 +10,7 @@ async function createCategory(params, callback) {
       ""
     );
   }
-
-  const model = new category(params);
+  const model = new CategorySchema(params);
   model
     .save()
     .then((response) => {
@@ -35,8 +34,11 @@ async function getCategories(params, callback) {
   let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.pageSize;
   let page = (Math.abs(params.page) || 1) - 1;
 
-  category
-    .find(condition, "categoryName categoryImage")
+  CategorySchema
+    .find
+    // condition,
+    // "categoryName categoryDescription categoryImage"
+    ()
     .limit(perPage)
     .skip(perPage * page)
     .then((response) => {
@@ -50,10 +52,9 @@ async function getCategories(params, callback) {
 async function getCategoryById(params, callback) {
   const categoryId = params.categoryId;
 
-  category
-    .findById(categoryId)
+  CategorySchema.findById(categoryId)
     .then((response) => {
-      if (!response) callback("not Found Categiry with Id" + categoryId);
+      if (!response) callback("Not Found Categiry with Id" + "" + categoryId);
       else callback(null, response);
     })
     .catch((error) => {
@@ -64,13 +65,35 @@ async function getCategoryById(params, callback) {
 async function updateCategory(params, callback) {
   const categoryId = params.categoryId;
 
-  category
-    .findByIdandUpdate(categoryId, params, { useFindAndModify: false })
+  CategorySchema.findByIdAndUpdate(categoryId, params, {
+    useFindAndModify: false,
+  })
     .then((response) => {
-      if (!response) callback("not Found Categiry with Id" + categoryId);
+      if (!response) callback("Not Found Categiry with Id" + "" + categoryId);
       else callback(null, response);
     })
     .catch((error) => {
       return callback(error);
     });
 }
+
+async function deleteCategory(params, callback) {
+  const categoryId = params.categoryId;
+
+  CategorySchema.findByIdAndDelete(categoryId)
+    .then((response) => {
+      if (!response) callback("Not Found Categiry with Id" + "" + categoryId);
+      else callback(null, response);
+    })
+    .catch((error) => {
+      return callback(error);
+    });
+}
+
+module.exports = {
+  createCategory,
+  getCategories,
+  getCategoryById,
+  updateCategory,
+  deleteCategory,
+};

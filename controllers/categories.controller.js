@@ -7,10 +7,12 @@ exports.create = (req, res, next) => {
       return next(err);
     } else {
       const path =
-        req.file != undefined ? req.file.path.replace[(/\\/g, "/")] : "";
+        req.file != undefined
+          ? req.file.originalname.replace[(/\\/g, "/")]
+          : "";
       var model = {
         categoryName: req.body.categoryName,
-        categoryDescription: req.body.description,
+        categoryDescription: req.body.categoryDescription,
         categoryImage: path != "" ? "/" + path : "",
       };
       categoriesService.createCategory(model, (error, results) => {
@@ -47,7 +49,7 @@ exports.findAll = (req, res, next) => {
 
 exports.findOne = (req, res, next) => {
   var model = {
-    categoryid: req.params.id,
+    categoryId: req.params.id,
   };
   categoriesService.getCategoryById(model, (error, results) => {
     if (error) {
@@ -67,11 +69,13 @@ exports.update = (req, res, next) => {
       return next(err);
     } else {
       const path =
-        req.file != undefined ? req.file.path.replace[(/\\/g, "/")] : "";
+        req.file != undefined
+          ? req.file.originalname.replace[(/\\/g, "/")]
+          : "";
       var model = {
         categoryId: req.params.id,
         categoryName: req.body.categoryName,
-        categoryDescription: req.body.description,
+        categoryDescription: req.body.categoryDescription,
         categoryImage: path != "" ? "/" + path : "",
       };
       categoriesService.updateCategory(model, (error, results) => {
@@ -90,7 +94,7 @@ exports.update = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
   var model = {
-    categoryid: req.params.id,
+    categoryId: req.params.id,
   };
   categoriesService.deleteCategory(model, (error, results) => {
     if (error) {
