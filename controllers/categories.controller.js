@@ -8,7 +8,8 @@ exports.create = (req, res, next) => {
     } else {
       const path =
         req.file != undefined
-          ? req.file.originalname.replace[(/\\/g, "/")]
+          ? // req.file.path.replace[(/\\/g, "/")]
+            req.file.originalname
           : "";
       var model = {
         categoryName: req.body.categoryName,
@@ -70,10 +71,11 @@ exports.update = (req, res, next) => {
     } else {
       const path =
         req.file != undefined
-          ? req.file.originalname.replace[(/\\/g, "/")]
+          ? // req.file.path.replace[(/\\/g, "/")]
+            req.file.originalname
           : "";
       var model = {
-        categoryId: req.params.id,
+        categoryId: req.params.id.replace("/n", ""),
         categoryName: req.body.categoryName,
         categoryDescription: req.body.categoryDescription,
         categoryImage: path != "" ? "/" + path : "",

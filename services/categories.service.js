@@ -63,10 +63,11 @@ async function getCategoryById(params, callback) {
 }
 
 async function updateCategory(params, callback) {
+  console.log("params", params);
   const categoryId = params.categoryId;
 
   CategorySchema.findByIdAndUpdate(categoryId, params, {
-    useFindAndModify: false,
+    useFindAndModify: true,
   })
     .then((response) => {
       if (!response) callback("Not Found Categiry with Id" + "" + categoryId);
