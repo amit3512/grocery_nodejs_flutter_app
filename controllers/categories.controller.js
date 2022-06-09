@@ -1,24 +1,36 @@
 const categoriesService = require("../services/categories.service");
 const upload = require("../middleware/category.upload");
+const { cloudinary } = require("../utils/cloudinary");
 
-exports.create = (req, res, next) => {
-  upload(req, res, function (err) {
+exports.create = async (req, res, next) => {
+  upload(req, res, async function (err) {
     if (err) {
       return next(err);
     } else {
-      const path =
+      // const path =
+      //   req.file != undefined
+      //     ? // req.file.path.replace[(/\\/g, "/")]
+      //       req.file.originalname
+      //     : "";
+      const result =
         req.file != undefined
-          ? // req.file.path.replace[(/\\/g, "/")]
-            req.file.originalname
+          ? await cloudinary.uploader.upload(req.file.path)
           : "";
+
       var model = {
-        categoryName: req.body.categoryName,
-        categoryDescription: req.body.categoryDescription,
-        categoryImage: path != "" ? "/" + path : "",
+        name: req.body.name,
+        // picture: path != "" ? "/" + path : "",
+        picture: result ? result.secure_url : "",
+        oldPrice: req.body.oldPrice,
+        price: req.body.price,
       };
       categoriesService.createCategory(model, (error, results) => {
+        console.log(error);
         if (error) {
-          return error;
+          return res.status(400).send({
+            ...error,
+          });
+          // return "what the fuck";
         } else {
           return res.status(200).send({
             message: "Success",
@@ -32,7 +44,7 @@ exports.create = (req, res, next) => {
 
 exports.findAll = (req, res, next) => {
   var model = {
-    categoryName: req.query.categoryName,
+    name: req.query.name,
     pageSize: req.query.pageSize,
     page: req.query.page,
   };
@@ -75,10 +87,11 @@ exports.update = (req, res, next) => {
             req.file.originalname
           : "";
       var model = {
-        categoryId: req.params.id.replace("/n", ""),
-        categoryName: req.body.categoryName,
-        categoryDescription: req.body.categoryDescription,
-        categoryImage: path != "" ? "/" + path : "",
+        categoryId: req.params.id,
+        name: req.body.name,
+        picture: path != "" ? "/" + path : "",
+        oldPrice: req.body.oldPrice,
+        price: req.body.price,
       };
       categoriesService.updateCategory(model, (error, results) => {
         if (error) {

@@ -2,12 +2,13 @@ const multer = require("multer");
 const Path = require("path");
 
 const storage = multer.diskStorage({
-  destination: function (res, file, cb) {
-    cb(null, "../uploads/categories");
-  },
-  filename: function (res, file, cb) {
-    cb(null, Date.now + "-" + file.originalname);
-  },
+  // destination: function (res, file, cb) {
+  //   cb(null, "../uploads/categories");
+  // },
+  // filename: function (res, file, cb) {
+  //   // cb(null, Date.now + "-" + file.originalname);
+  //   cb(null, file.originalname);
+  // },
 });
 
 const fileFilter = (req, file, callback) => {
@@ -29,4 +30,5 @@ let upload = multer({
   fileSize: 1048576,
 });
 
-module.exports = upload.single("categoryImage");
+// module.exports = upload.single("categoryImage");
+module.exports = upload.single("picture");

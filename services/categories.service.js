@@ -2,30 +2,34 @@ const { MONGO_DB_CONFIG } = require("../config/app.config");
 const { CategorySchema } = require("../models/category.model");
 
 async function createCategory(params, callback) {
-  if (!params.categoryName) {
-    return callback(
-      {
-        message: "Category Name Required",
-      },
-      ""
-    );
-  }
-  const model = new CategorySchema(params);
-  model
-    .save()
-    .then((response) => {
-      callback(null, response);
-    })
-    .catch((error) => {
-      return callback(error);
+  const name = params.name;
+  const category = await CategorySchema.findOne({ name });
+  if (!name) {
+    return callback({
+      message: "Category Name Required",
     });
+  } else if (category) {
+    return callback({
+      message: "Category Name Must Be Unique",
+    });
+  } else {
+    const model = new CategorySchema(params);
+    model
+      .save()
+      .then((response) => {
+        callback(null, response);
+      })
+      .catch((error) => {
+        return callback(error);
+      });
+  }
 }
 
 async function getCategories(params, callback) {
-  const categoryName = params.categoryName;
+  const categoryName = params.name;
   var condition = categoryName
     ? {
-        categoryName: {
+        name: {
           $regs: new RegExp(categoryName),
           $options: "i",
         },
@@ -63,7 +67,6 @@ async function getCategoryById(params, callback) {
 }
 
 async function updateCategory(params, callback) {
-  console.log("params", params);
   const categoryId = params.categoryId;
 
   CategorySchema.findByIdAndUpdate(categoryId, params, {

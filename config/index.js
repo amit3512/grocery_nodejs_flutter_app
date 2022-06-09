@@ -14,7 +14,7 @@ mongoose
   })
   .then(
     () => {
-      console.log("Database Connected" + 4000);
+      console.log("Database Connected" + " " + 4000);
     },
     (error) => {
       console.log("Database cant be connected" + error);
