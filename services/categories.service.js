@@ -35,7 +35,7 @@ async function getCategories(params, callback) {
         },
       }
     : {};
-  let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.pageSize;
+  let perPage = Math.abs(params.pageSize) || MONGO_DB_CONFIG.PAGE_SIZE;
   let page = (Math.abs(params.page) || 1) - 1;
 
   CategorySchema
