@@ -1,27 +1,17 @@
 const ordersService = require("../services/orders.service");
 
 exports.create = async (req, res, next) => {
-  // var model = {
-  //   productId: req.body.productId,
-  //   name: req.body.name,
-  //   picture: req.body.picture,
-  //   quantity: req.body.quantity,
-  //   price: req.body.price,
-  //   totalPrice: req.body.totalPrice,
-  // };
-  var model = {
-    orderData: req.body.orderData,
-  };
+  var model = req.body;
 
   ordersService.createOrder(model, (error, results) => {
-    console.log(error);
+    // console.log(error);
     if (error) {
       return res.status(400).send({
         ...error,
       });
     } else {
-      return res.status(400).send({
-        message: "Success",
+      return res.status(200).send({
+        message: "Your Order is placed Successfully",
         data: results,
       });
     }

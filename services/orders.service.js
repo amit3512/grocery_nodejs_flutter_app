@@ -3,14 +3,6 @@ const { OrderSchema } = require("../models/order.model");
 
 async function createOrder(params, callback) {
   console.log("parameter", params);
-  // const productId = params.productId;
-  // const order = await OrderSchema.findOne({ productId });
-  // if (!productId) {
-  //   return callback({
-  //     message: "Order productId Required",
-  //   });
-  // } else {
-
   const model = new OrderSchema(params);
   model
     .save()
