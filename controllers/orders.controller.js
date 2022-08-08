@@ -1,13 +1,16 @@
 const ordersService = require("../services/orders.service");
 
 exports.create = async (req, res, next) => {
+  // var model = {
+  //   productId: req.body.productId,
+  //   name: req.body.name,
+  //   picture: req.body.picture,
+  //   quantity: req.body.quantity,
+  //   price: req.body.price,
+  //   totalPrice: req.body.totalPrice,
+  // };
   var model = {
-    productId: req.body.productId,
-    name: req.body.name,
-    picture: req.body.picture,
-    quantity: req.body.quantity,
-    price: req.body.price,
-    totalPrice: req.body.totalPrice,
+    orderData: req.body.orderData,
   };
 
   ordersService.createOrder(model, (error, results) => {

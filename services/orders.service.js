@@ -2,30 +2,25 @@ const { MONGO_DB_CONFIG } = require("../config/app.config");
 const { OrderSchema } = require("../models/order.model");
 
 async function createOrder(params, callback) {
-  const productId = params.productId;
-  console.log("params", params);
-  const order = await OrderSchema.findOne({ productId });
-  if (!productId) {
-    return callback({
-      message: "Order productId Required",
+  console.log("parameter", params);
+  // const productId = params.productId;
+  // const order = await OrderSchema.findOne({ productId });
+  // if (!productId) {
+  //   return callback({
+  //     message: "Order productId Required",
+  //   });
+  // } else {
+
+  const model = new OrderSchema(params);
+  model
+    .save()
+    .then((response) => {
+      callback(null, response);
+    })
+    .catch((error) => {
+      return callback(error);
     });
-  }
-  //   else if (order) {
-  //     return callback({
-  //       message: "Category Name Must Be Unique",
-  //     });
-  //   }
-  else {
-    const model = new OrderSchema(params);
-    model
-      .save()
-      .then((response) => {
-        callback(null, response);
-      })
-      .catch((error) => {
-        return callback(error);
-      });
-  }
+  // }
 }
 
 async function getOrderDetails(params, callback) {
