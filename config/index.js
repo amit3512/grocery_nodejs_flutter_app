@@ -25,6 +25,7 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use("/api", require("../routes/app.routes"));
 // app.use("/api/order", require("../routes/app.orders"));
+app.use("/api/user", require("../routes/app.user"));
 app.use(errors.errorHandler);
 // app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
