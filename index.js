@@ -24,6 +24,9 @@ mongoose
   );
 
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Successfullu Deployed");
+});
 app.use("/uploads", express.static("uploads"));
 // app.use("/api", require("../routes/app.routes"));
 // app.use("/api/user", require("../routes/app.user"));
@@ -32,16 +35,13 @@ app.use("/api/user", require("./routes/app.user"));
 app.use(errors.errorHandler);
 // app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-if (process.env.NODE_ENV == "production") {
-  // app.use(express.static("client/build"));
-  // const path = require("path");
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  // });
-  app.get("*", (req, res) => {
-    return "Successfullu Deployed";
-  });
-}
+// if (process.env.NODE_ENV == "production") {
+//   app.use(express.static("client/build"));
+//   const path = require("path");
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 app.listen(process.env.port || 4000, function () {
   console.log("Ready to Go!");
 });
