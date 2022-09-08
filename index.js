@@ -33,13 +33,13 @@ app.get("/", (req, res) => {
 // app.use(errors.errorHandler);
 // app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-// if (process.env.NODE_ENV == "production") {
-//     app.use(express.static("client/build"));
-//     const path = require("path");
-//     app.get("*", (req, res) => {
-//       res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//     });
-// }
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("/"));
+  const path = require("path");
+  app.get("/", (req, res) => {
+    res.status(200).send("Hello server is running").end();
+  });
+}
 app.listen(process.env.port || 4000, function () {
   console.log("Ready to Go!");
 });
