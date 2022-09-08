@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTON=false"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Amit Shrestha",
   "license": "ISC",
