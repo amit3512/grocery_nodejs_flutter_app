@@ -23,10 +23,10 @@ mongoose
     }
   );
 
-app.use(express.json());
 app.get("/", (req, res) => {
-  res.send("Successfullu Deployed");
+  res.send("Successfully Deployed");
 });
+app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 // app.use("/api", require("../routes/app.routes"));
 // app.use("/api/user", require("../routes/app.user"));
@@ -42,7 +42,7 @@ if (process.env.NODE_ENV == "production") {
   //     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   //   });
   app.get("/", (req, res) => {
-    res.send("Successfullu Deployed");
+    res.send("Successfully Deployed");
   });
 }
 app.listen(process.env.port || 4000, function () {
