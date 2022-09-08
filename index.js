@@ -40,6 +40,6 @@ if (process.env.NODE_ENV == "production") {
     res.status(200).send("Hello server is running").end();
   });
 }
-app.listen(process.env.port || 4000, function () {
+app.listen(process.env.PORT || 4000, function () {
   console.log("Ready to Go!");
 });
