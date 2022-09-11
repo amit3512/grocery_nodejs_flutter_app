@@ -1,8 +1,25 @@
 const mongoose = require("mongoose");
+const { UserSchema } = require("./user.model");
 const OrderSchema = mongoose.model(
   "Order",
   new mongoose.Schema(
     {
+      user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: UserSchema,
+      },
+      user_name: {
+        type: mongoose.Schema.Types.String,
+        ref: UserSchema,
+      },
+      user_email: {
+        type: mongoose.Schema.Types.String,
+        ref: UserSchema,
+      },
+      user_contact: {
+        type: mongoose.Schema.Types.Number,
+        ref: UserSchema,
+      },
       orderData: [
         {
           productId: {
